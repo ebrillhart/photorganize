@@ -1,0 +1,108 @@
+<!-- navbar -->
+<div class="navbar-fixed">
+	<nav>
+	  <div class="nav-wrapper">
+	    <a href="/" class="brand-logo">photOrganize</a>
+	    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+	    <ul class="right hide-on-med-and-down">
+	    	<li><a href="/">Home</a></li>
+	    	<li><a href="/user/:id/dashboard">Dashboard</a></li>
+	    	<li><a href="/user/:id/profile">Profile</a></li>
+	    	<li><a href="#">Logout</a></li>
+	    </ul>
+	    <ul class="side-nav" id="mobile-demo">
+	        <li><a href="/">Home</a></li>
+	    	<li><a href="/user/:id/dashboard">Dashboard</a></li>
+	    	<li><a href="/user/:id/profile">Profile</a></li>
+	    	<li><a href="/#about">Contact</a></li>
+	    	<li><a href="#">Logout</a></li>
+      	</ul>
+	  </div>
+	</nav>
+</div>
+
+<!-- photo info div -->
+<main>
+<div class="container z-depth-3" id="displayCon">
+	<div class="row valign-wrapper">
+		<div class="col s6">
+			<h5>User</h5>
+			<h6><a href="#">Location</a></h6>
+			<img class="responsive-img" id="displayImg" src="/images/img5.jpg">
+			<h6>Likes</h6>
+			<h6>Caption</h6>
+			<h6><a href="#">View on Instagram</a></h6>
+		</div>
+		<!-- add tags -->
+		<div class="col s6 m6 l6">
+			<div class="row valign">
+				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
+					<form>
+	        			<div class="input-field">
+	         				<input id="search" type="search" placeholder="Add Tag" required>
+	        			</div>
+	      			</form>
+				</div>
+			</div>
+			<!-- display and remove tags -->
+			<div class="row">
+				<div class="container">
+					<div class="col s3 m3 l3 offset-s1 offset-m1">
+						<div class="chip valign-wrapper">
+							Tag 
+							<a class="vertical-align" href="#"><i class="material-icons tiny vertical-align">close</i></a>
+						</div>
+					</div>
+					<div class="col s3 m3 l3">
+						<div class="chip valign-wrapper">
+							Tag 
+							<a class="vertical-align" href="#"><i class="material-icons tiny vertical-align">close</i></a>
+						</div>
+					</div>
+		  		</div>	
+			</div>
+			<!-- add/edit notes -->
+			<div class="row">
+				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
+					<form>
+	        			<div class="input-field">
+	         				<textarea id="textarea1" type="input" placeholder="Add or Edit Note" class="materialize-textarea" length="200" required></textarea>
+	        			</div>
+	      			</form>
+				</div>
+			</div>
+			<!-- display notes -->
+			<div class="row">
+				<div class="container">
+					<div class="col s10 m10 l12 offset-s1 offset-m1">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+				</div>
+			</div>
+			<!-- archive button -->
+			<div class="row">
+				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3 center-align">
+					<a class="btn center-align" href="#">Archive</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</main>
+
+<!-- footer div -->
+<footer class="page-footer hide-on-med-and-down">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+            	<h5 class="white-text">Contact</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © Copyright 2015. All rights reserved.
+            <a class="grey-text text-lighten-4 right" href="#!">Privacy Policy</a>
+        </div>
+    </div>
+</footer>

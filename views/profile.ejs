@@ -1,0 +1,61 @@
+<!-- navbar -->
+<div class="navbar-fixed">
+	<nav>
+	  <div class="nav-wrapper">
+	    <a href="/" class="brand-logo">photOrganize</a>
+	    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+	    <ul class="right hide-on-med-and-down">
+		    <li><a href="/">Home</a></li>
+		    <li><a href="/user/:id/dashboard">Dashboard</a></li>
+		    <li class="active"><a href="/user/:id/profile">Profile</a></li>
+		    <li><a href="#">Logout</a></li>
+	    </ul>
+	    <ul class="side-nav" id="mobile-demo">
+	        <li><a href="/">Home</a></li>
+		    <li><a href="/user/:id/dashboard">Dashboard</a></li>
+		    <li class="active"><a href="/user/:id/profile">Profile</a></li>
+		    <li><a href="/#about">Contact</a></li>
+		    <li><a href="#">Logout</a></li>
+      	</ul>
+	  </div>
+	</nav>
+</div>
+<!-- user information -->
+<div class="container z-depth-3" id="profileCon">
+	<div class="row">
+		<div class="col m6 l6">
+			<div class="row">
+				<h4 class="profInfo">Username</h4>
+				<h6 class="profInfo">Full Name</h6>
+				<h6 class="profInfo">Add Email</h6>
+				<h6 class="profInfo">Add Phone Number</h6>
+			</div>
+			<div class="row">
+				<div class="col m10 l10 offset-m1 offset-l1 center-align">
+					<a class="btn center-align" href="#">Unhide All Archived Photos</a>
+				</div>
+			</div>
+		</div>
+		<!-- profile picture -->
+		<div class="col m6 l6">
+			<img class="circle responsive-img" id="profPic" src="/images/img9.jpg">
+		</div>
+	</div>
+</div>
+<!-- footer div -->
+<footer class="page-footer hide-on-med-and-down">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+            	<h5 class="white-text">Contact</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © Copyright 2015. All rights reserved.
+            <a class="grey-text text-lighten-4 right" href="#!">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
