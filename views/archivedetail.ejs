@@ -24,63 +24,20 @@
 	<div class="row valign-wrapper">
 		<div class="col s6">
 			<h5><%= photo.posterName %></h5>
-			<% if(photo.location) { %>
-				<h6><a href="#"><%= photo.locationName %></a></h6>
+			<% if(photo.locationName != null) { %>
+				<h6><a target="_blank" href="https://www.google.com/maps/search/<%= photo.locationName %>/@<%= photo.lat %>,<%= photo.long %>"><%= photo.locationName %></a></h6>
 			<% } %>
 			<img class="responsive-img" id="displayImg" src="<%= photo.standardRes %>">
 			<h6><%= photo.likeCount %> likes</h6>
 			<h6><%= photo.caption %></h6>
-			<h6><a href="<%= photo.link %>">View on Instagram</a></h6>
+			<h6><a href="<%= photo.link %>" target="blank">View on Instagram</a></h6>
 		</div>
 		<!-- add tags -->
 		<div class="col s6 m6 l6">
-			<div class="row valign">
-				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
-					<form>
-	        			<div class="input-field">
-	         				<input id="search" type="search" placeholder="Add Tag" required>
-	        			</div>
-	      			</form>
-				</div>
-			</div>
-			<!-- display and remove tags -->
-			<div class="row">
-				<div class="container">
-					<div class="col s3 m3 l3 offset-s1 offset-m1">
-						<div class="chip valign-wrapper">
-							Tag 
-							<a class="vertical-align" href="#"><i class="material-icons tiny vertical-align">close</i></a>
-						</div>
-					</div>
-					<div class="col s3 m3 l3">
-						<div class="chip valign-wrapper">
-							Tag 
-							<a class="vertical-align" href="#"><i class="material-icons tiny vertical-align">close</i></a>
-						</div>
-					</div>
-		  		</div>	
-			</div>
-			<!-- add/edit notes -->
-			<div class="row">
-				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
-					<form>
-	        			<div class="input-field">
-	         				<textarea id="textarea1" type="input" placeholder="Add or Edit Note" class="materialize-textarea" length="200" required></textarea>
-	        			</div>
-	      			</form>
-				</div>
-			</div>
-			<!-- display notes -->
-			<div class="row">
-				<div class="container">
-					<div class="col s10 m10 l12 offset-s1 offset-m1">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
-				</div>
-			</div>
 			<!-- archive button -->
-			<div class="row">
+			<div class="row valign-wrapper">
 				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3 center-align">
-					<a class="btn center-align" href="<%= '/user/' + user.id + '/archive/' + photo.id + '/show' %>">Undo Archive</a>
+					<a class="waves-effect waves-light btn center-align vertical-align cyan accent-4" href="<%= '/user/' + user.id + '/archive/' + photo.id + '/show' %>">Undo Archive</a>
 				</div>
 			</div>
 		</div>

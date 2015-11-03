@@ -16,7 +16,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        models.image.hasMany(models.note);
+        models.image.belongsToMany(models.tag, {through: "imagesTags"});
         models.image.belongsTo(models.user);
       }
     }

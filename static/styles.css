@@ -4,6 +4,10 @@
 	}
 }
 
+html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+  }
+
 body {
     display: flex;
     min-height: 100vh;
@@ -72,5 +76,32 @@ footer.page-footer {
 
 #archiveCon {
 	margin-top: 20px;
+}
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #01579b;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+h6 a, p a, a i {
+	color: #01579b;
+	text-decoration: none;
+}
+
+h6 a:hover, p a:hover, a i:hover {
+	font-size: 1.1em;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a.btn:hover {
+	color: white;
+}
+
+li a, li a:hover {
+	color: white;
 }
 
