@@ -21,10 +21,6 @@ router.use(function(req,res,next){
   next();
 });
 
-// array to delete once database is working
-// var photos = ["/images/img1.JPG", "/images/img2.JPG", "/images/img3.JPG", "/images/img4.JPG",
-//  "/images/img5.JPG", "/images/img6.JPG", "/images/img7.JPG", "/images/img8.JPG"];
-
 router.get("/:id/dashboard", function(req, res) {
 	var userId = req.params.id;
 	db.user.findById(userId).then(function(user) {
