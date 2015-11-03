@@ -18,9 +18,17 @@
   "homepage": "https://github.com/ebrillhart/photorganize#readme",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "connect-flash": "^0.1.1",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "express-ejs-layouts": "^2.0.0",
-    "request": "^2.65.0"
+    "express-session": "^1.12.1",
+    "instagram-node": "^0.5.8",
+    "passport": "^0.3.0",
+    "passport-instagram": "^1.0.0",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
+    "request": "^2.65.0",
+    "sequelize": "^3.13.0"
   }
 }

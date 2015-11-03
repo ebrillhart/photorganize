@@ -8,7 +8,7 @@
 	    	<li><a href="/">Home</a></li>
 	    	<li class="active"><a href="/user/:id/dashboard">Dashboard</a></li>
 	    	<li><a href="/user/:id/profile">Profile</a></li>
-	    	<li><a href="#">Logout</a></li>
+	    	<li><a href="/logout">Logout</a></li>
 	    </ul>
 	    <ul class="side-nav" id="mobile-demo">
 	        <li><a href="/">Home</a></li>
@@ -42,14 +42,14 @@
 				<div class="col m3">
 					<div class="card z-depth-3">
     					<div class="card-image waves-effect waves-block waves-light">
-      						<img class="activator" src="<%= photo %>">
+      						<img class="activator" src="<%= photo.thumbnail %>">
     					</div>
     					<div class="card-reveal valign-wrapper">
     						<div class="row">
       							<span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
       						</div>
       						<div class="row">
-      							<p class="center-align vertical-align"><a href="/user/:id/photo/:idx">Details</a></p>
+      							<p class="center-align vertical-align"><a href="<%= '/user/' + photo.userId + '/photo/' + photo.id %>">Details</a></p>
       							<p class="center-align"><a href="#">Archive</a></p>
       						</div>
     					</div>
