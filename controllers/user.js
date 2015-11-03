@@ -21,16 +21,17 @@ router.use(function(req,res,next){
   next();
 });
 
+// see current user dashboard of photos
 router.get("/:id/dashboard", function(req, res) {
 	var userId = req.params.id;
 	db.user.findById(userId).then(function(user) {
 		ig.use({ access_token: user.token });
 		ig.user_self_liked(hdl = function(err, medias, pagination, remaining, limit) {
 			var isDone = 0;
+			if(pagination.next) {
+    			pagination.next(hdl); // Will get second page results 
+  			}
 			medias.forEach(function(photo) {
-				if(pagination.next) {
-    				pagination.next(hdl); // Will get second page results 
-  				}
 				var imgID = photo.id;
           		db.image.findOrCreate({
             		where: {imgId: imgID},
@@ -52,11 +53,13 @@ router.get("/:id/dashboard", function(req, res) {
             		if (isDone >= medias.length) {
             			db.image.findAll({
             				where: {
-            					userId: userId
-            				}
+            					userId: userId,
+                      hidden: null
+            				},
             			}).then(function(images) {
             				var photoArray = images;
-            				res.render("dashboard", {photos: photoArray});
+            				var thisUser = user;
+            				res.render("dashboard", {photos: photoArray, user: thisUser});
             			});
             		}
           		});
@@ -65,19 +68,88 @@ router.get("/:id/dashboard", function(req, res) {
 	});	
 });
 
+// see current user profile
 router.get("/:id/profile", function(req, res) {
-	res.render("profile");
+	userID = req.params.id;
+	db.user.findById(userID).then(function(user) {
+		var thisUser = user;
+		res.render("profile", {user: thisUser});
+	});
 });
 
+// see detail of unarchived photo
 router.get("/:id/photo/:idx", function(req, res) {
 	var userId = req.params.id;
 	var photoId = req.params.idx;
 	db.user.findById(userId).then(function(user) {
 		db.image.findById(photoId).then(function(image) {
 			var photo = image;
-			res.render("detail", {photo: photo});
+      var thisUser = user;
+			res.render("detail", {photo: photo, user: thisUser});
 		});
 	});	
 });
 
+// get archived photos
+router.get("/:id/archive", function(req, res) {
+  userID = req.params.id;
+  db.user.findById(userID).then(function(user) {
+    db.image.findAll({
+      where: {
+        hidden: "yes"
+      }
+    }).then(function(images) {
+      var photos = images;
+      var thisUser = user;
+      res.render("archive", {photos: photos, user: thisUser});
+    });
+  });
+});
+
+// detail of archived photo
+router.get("/:id/archive/:idx", function(req, res) {
+  userID = req.params.id;
+  photoID = req.params.idx;
+  db.user.findById(userID).then(function(user) {
+    db.image.findById(photoID).then(function(image) {
+      var photo = image;
+      var thisUser = user;
+      res.render("archivedetail", {photo: photo, user: thisUser});
+    });
+  }); 
+});
+
+// archive selected photo
+router.get("/:id/photo/:idx/hide", function(req, res) {
+  userID = req.params.id;
+  photoID = req.params.idx;
+  db.image.find({
+    where: {
+      id: photoID
+    }
+  }).then(function(image){
+    image.hidden = "yes";
+    image.save().then(function() {
+      res.redirect('/user/' + userID + '/dashboard');
+    });
+  });  
+});
+
+// unarchive selected photo
+router.get("/:id/archive/:idx/show", function(req, res) {
+  userID = req.params.id;
+  photoID = req.params.idx;
+  db.image.find({
+    where: {
+      id: photoID
+    }
+  }).then(function(image){
+    image.hidden = null;
+    image.save().then(function() {
+      res.redirect('/user/' + userID + '/dashboard');
+    });
+  });  
+});
+
+// use router in index.js
 module.exports = router;

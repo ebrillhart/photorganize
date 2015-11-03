@@ -5,17 +5,14 @@
 	    <a href="/" class="brand-logo">photOrganize</a>
 	    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 	    <ul class="right hide-on-med-and-down">
-		    <li><a href="/">Home</a></li>
-		    <li><a href="/user/:id/dashboard">Dashboard</a></li>
-		    <li class="active"><a href="/user/:id/profile">Profile</a></li>
-		    <li><a href="#">Logout</a></li>
+		    <li><a href="<%= '/user/' + user.id + '/dashboard' %>">Dashboard</a></li>
+		    <li class="active"><a href="<%= '/user/' + user.id + '/profile' %>">Profile</a></li>
+		    <li><a href="/logout">Logout</a></li>
 	    </ul>
 	    <ul class="side-nav" id="mobile-demo">
-	        <li><a href="/">Home</a></li>
-		    <li><a href="/user/:id/dashboard">Dashboard</a></li>
-		    <li class="active"><a href="/user/:id/profile">Profile</a></li>
-		    <li><a href="/#about">Contact</a></li>
-		    <li><a href="#">Logout</a></li>
+		    <li><a href="<%= '/user/' + user.id + '/dashboard' %>">Dashboard</a></li>
+		    <li class="active"><a href="<%= '/user/' + user.id + '/profile' %>">Profile</a></li>
+		    <li><a href="/logout">Logout</a></li>
       	</ul>
 	  </div>
 	</nav>
@@ -23,22 +20,21 @@
 <!-- user information -->
 <div class="container z-depth-3" id="profileCon">
 	<div class="row">
-		<div class="col m6 l6">
-			<div class="row">
-				<h4 class="profInfo">Username</h4>
-				<h6 class="profInfo">Full Name</h6>
-				<h6 class="profInfo">Add Email</h6>
-				<h6 class="profInfo">Add Phone Number</h6>
+		<div class="row valign-wrapper">
+			<div class="col s9 m9 l9">
+				<h4 class="profInfo"><%= user.username %></h4>
+				<h6 class="profInfo"><%= user.fullname %></h6>
+				<h6 class="profInfo"><%= user.bio%></h6>
+			</div>	
+				<!-- profile picture -->
+			<div class="col s3 m3 l3">
+				<img class="circle responsive-img vertical-align" id="profPic" src="<%= user.profilePic %>">
 			</div>
-			<div class="row">
-				<div class="col m10 l10 offset-m1 offset-l1 center-align">
-					<a class="btn center-align" href="#">Unhide All Archived Photos</a>
-				</div>
+		</div>	
+		<div class="row">
+			<div class="col s12 m12 l12 center-align">
+				<a class="btn center-align" href="<%= '/user/' + user.id + '/archive' %>">See All Archived Photos</a>
 			</div>
-		</div>
-		<!-- profile picture -->
-		<div class="col m6 l6">
-			<img class="circle responsive-img" id="profPic" src="/images/img9.jpg">
 		</div>
 	</div>
 </div>
