@@ -210,14 +210,10 @@ router.post("/:id/dashboard/tag", function(req, res) {
         }).then(function(images) {
             var photoArray = images;
             var thisUser = user;
-            if (photoArray == []) {
-                alert("There are no tags for that search!");
-            } else {
-                res.render("dashboard", {
+                res.redirect("/user/" + userID + "dashboard", {
                     photos: photoArray,
                     user: thisUser
                 });
-            }
         })
     });
 });
