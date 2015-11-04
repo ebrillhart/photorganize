@@ -77,7 +77,7 @@ router.get("/:id/dashboard", function(req, res) {
                                     hidden: null
                                 },
                                 order: [
-                                    ['id', 'DESC'],
+                                    ['id', 'ASC'],
                                 ]
                             }).then(function(images) {
                                 db.tag.findAll().then(function(tags) {
