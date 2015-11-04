@@ -32,7 +32,7 @@ router.use(function(req, res, next) {
 // see current user dashboard of photos
 // ************************************
 router.get("/:id/dashboard", function(req, res) {
-    if (req.user) { // if the user is logged in
+    if (req.user.id = req.params.id) { // if the user is logged in
         var userId = req.params.id;
         // find the user in DB
         db.user.findById(userId).then(function(user) {
