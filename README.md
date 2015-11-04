@@ -1,4 +1,4 @@
-# photorganize
+# photOrganize
 For Instagram. Use to categorize and notate photos that you've liked.
 
 ## How-To

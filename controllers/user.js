@@ -6,21 +6,20 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var ig = require('instagram-node').instagram();
 var bodyParser = require('body-parser');
-
-router.use(bodyParser.urlencoded({extended: false}));
+router.use(bodyParser.urlencoded({
+    extended: false
+}));
 router.use(flash());
 router.use(session({
-  secret: 'super secret',
-  resave: false,
-  saveUninitialized: true
-})); 
-
-router.use(function(req,res,next){
-  res.locals.currentUser = req.user;
-  res.locals.alerts = req.flash();
-  next();
+    secret: 'super secret',
+    resave: false,
+    saveUninitialized: true
+}));
+router.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.alerts = req.flash();
+    next();
 });
-
 // *****************
 // ROUTES FROM /USER
 // *****************
@@ -28,82 +27,106 @@ router.use(function(req,res,next){
 // see current user dashboard of photos
 // ************************************
 router.get("/:id/dashboard", function(req, res) {
-	var userId = req.params.id;
-	db.user.findById(userId).then(function(user) {
-		ig.use({ access_token: user.token });
-		ig.user_self_liked(hdl = function(err, medias, pagination, remaining, limit) {
-			var isDone = 0;
-			if(pagination.next) {
-    			pagination.next(hdl); // Will get second page results 
-  			}
-			medias.forEach(function(photo) {
-				var imgID = photo.id;
-          		db.image.findOrCreate({
-            		where: {imgId: imgID},
-            		defaults: {
-   						lat: photo.location ? photo.location.latitude : null,
-   						long: photo.location ? photo.location.longitude : null,
-   						locationName: photo.location ? photo.location.name : null,
-   						caption: photo.caption ? photo.caption.text : null,
-                    	link: photo.link,
-                    	userId: userId,
-                    	likeCount: photo.likes ? photo.likes.count : null,
-                    	thumbnail: photo.images.thumbnail.url,
-                    	standardRes: photo.images.standard_resolution.url,
-                    	posterName: photo.user.username,
-                    	hidden: null
-            		}
-          		}).spread(function(image, created, err) {
-            		isDone++;
-            		if (isDone >= medias.length) {
-            			db.image.findAll({
-            				where: {
-            					userId: userId,
-                      hidden: null
-            				},
-            			}).then(function(images) {
-                    db.tag.findAll().then(function(tags) {
-                      var allTags = tags;
-                      var photoArray = images;
-                      var thisUser = user;
-                      res.render("dashboard", {photos: photoArray, user: thisUser, tags: allTags});
+    if (req.user) {
+        var userId = req.params.id;
+        db.user.findById(userId).then(function(user) {
+            ig.use({
+                access_token: user.token
+            });
+            ig.user_self_liked(hdl = function(err, medias, pagination, remaining, limit) {
+                var isDone = 0;
+                if (pagination.next) {
+                    pagination.next(hdl); // Will get second page results 
+                }
+                medias.forEach(function(photo) {
+                    var imgID = photo.id;
+                    db.image.findOrCreate({
+                        where: {
+                            imgId: imgID
+                        },
+                        defaults: {
+                            lat: photo.location ? photo.location.latitude : null,
+                            long: photo.location ? photo.location.longitude : null,
+                            locationName: photo.location ? photo.location.name : null,
+                            caption: photo.caption ? photo.caption.text : null,
+                            link: photo.link,
+                            userId: userId,
+                            likeCount: photo.likes ? photo.likes.count : null,
+                            thumbnail: photo.images.thumbnail.url,
+                            standardRes: photo.images.standard_resolution.url,
+                            posterName: photo.user.username,
+                            hidden: null
+                        }
+                    }).spread(function(image, created, err) {
+                        isDone++;
+                        if (isDone >= medias.length) {
+                            db.image.findAll({
+                                where: {
+                                    userId: userId,
+                                    hidden: null
+                                },
+                            }).then(function(images) {
+                                db.tag.findAll().then(function(tags) {
+                                    var allTags = tags;
+                                    var photoArray = images;
+                                    var thisUser = user;
+                                    res.render("dashboard", {
+                                        photos: photoArray,
+                                        user: thisUser,
+                                        tags: allTags
+                                    });
+                                });
+                            })
+                        }
                     });
-            			})
-            		}
-          		});
-			});
-		});
-	});	
+                });
+            });
+        });
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // see current user profile
 router.get("/:id/profile", function(req, res) {
-	userID = req.params.id;
-	db.user.findById(userID).then(function(user) {
-		var thisUser = user;
-		res.render("profile", {user: thisUser});
-	});
+    if (req.user) {
+        userID = req.params.id;
+        db.user.findById(userID).then(function(user) {
+            var thisUser = user;
+            res.render("profile", {
+                user: thisUser
+            });
+        });
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // see detail of unarchived photo
 router.get("/:id/photo/:idx", function(req, res) {
-	var userId = req.params.id;
-	var photoId = req.params.idx;
-	db.user.findById(userId).then(function(user) {
-		db.image.findById(photoId).then(function(image) {
-			image.getTags().then(function(tags) {
-        image.getNotes().then(function(notes) {
-          var photo = image;
-          var thisUser = user;
-          var allTags = tags;
-          var allNotes = notes;
-          res.render("detail", {photo: photo, user: thisUser, notes: allNotes, tags: allTags});
+    if (req.user) {
+        var userId = req.params.id;
+        var photoId = req.params.idx;
+        db.user.findById(userId).then(function(user) {
+            db.image.findById(photoId).then(function(image) {
+                image.getTags().then(function(tags) {
+                    image.getNotes().then(function(notes) {
+                        var photo = image;
+                        var thisUser = user;
+                        var allTags = tags;
+                        var allNotes = notes;
+                        res.render("detail", {
+                            photo: photo,
+                            user: thisUser,
+                            notes: allNotes,
+                            tags: allTags
+                        });
+                    });
+                });
+            });
         });
-      });
-		});
-	});	
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // add new tag to photo
 router.post("/:id/photo/:idx/tag", function(req, res) {
     var userID = req.params.id;
@@ -116,32 +139,34 @@ router.post("/:id/photo/:idx/tag", function(req, res) {
             }
         }).spread(function(tag, created) {
             image.addTag(tag).then(function() {
-                    res.redirect("/user/" + userID + "/photo/" + photoID)
-                });
+                res.redirect("/user/" + userID + "/photo/" + photoID)
+            });
         });
     });
 });
-
 // delete tag from photo
 router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
-    var userID = req.params.id;
-    var photoID = req.params.idx;
-    var tagID = req.params.tagid;
-    db.imagesTags.destroy({
-        where: {
-            imageId: photoID,
-            tagId: tagID
-        }
-    }).then(function() {
-        res.redirect("/user/" + userID + "/photo/" + photoID);
-    }).catch(function(e) {
-        res.send({
-            'msg': 'error',
-            'error': e
+    if (req.user) {
+        var userID = req.params.id;
+        var photoID = req.params.idx;
+        var tagID = req.params.tagid;
+        db.imagesTags.destroy({
+            where: {
+                imageId: photoID,
+                tagId: tagID
+            }
+        }).then(function() {
+            res.redirect("/user/" + userID + "/photo/" + photoID);
+        }).catch(function(e) {
+            res.send({
+                'msg': 'error',
+                'error': e
+            });
         });
-    });
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // path to see all images for a tag name
 router.post("/:id/dashboard/tag", function(req, res) {
     var tagName = req.body.tag;
@@ -153,19 +178,20 @@ router.post("/:id/dashboard/tag", function(req, res) {
     }).then(function(tag) {
         tag.getImages().then(function(images) {
             db.user.find({
-              where: {
-                id: userID
-              }
+                where: {
+                    id: userID
+                }
             }).then(function(user) {
-              var photoArray = images;
-              var thisUser = user;
-              res.render("dashboard", {photos: photoArray, user: thisUser});
+                var photoArray = images;
+                var thisUser = user;
+                res.render("dashboard", {
+                    photos: photoArray,
+                    user: thisUser
+                });
             })
-            
         });
     });
 });
-
 // add new note to unarchived photo
 router.post("/:id/photo/:idx/note", function(req, res) {
     var userID = req.params.id;
@@ -173,104 +199,126 @@ router.post("/:id/photo/:idx/note", function(req, res) {
     var newNote = req.body.note;
     console.log(newNote);
     db.image.find({
-      where: {
-        id: photoID
-      }
+        where: {
+            id: photoID
+        }
     }).then(function(image) {
-      image.createNote({
-        noteText: newNote,
-        imageId: photoID
-      }).then(function(note) {
-        res.redirect("/user/" + userID + "/photo/" + photoID);
-      });
-    });    
+        image.createNote({
+            noteText: newNote,
+            imageId: photoID
+        }).then(function(note) {
+            res.redirect("/user/" + userID + "/photo/" + photoID);
+        });
+    });
 });
-
 // delete note from photo
 router.get("/:id/photo/:idx/note/:noteId", function(req, res) {
-    var userID = req.params.id;
-    var photoID = req.params.idx;
-    var noteID = req.params.noteId;
-    db.note.destroy({
-        where: {
-            id: noteID
-        }
-    }).then(function() {
-        res.redirect("/user/" + userID + "/photo/" + photoID);
-    }).catch(function(e) {
-        res.send({
-            'msg': 'error',
-            'error': e
+    if (req.user) {
+        var userID = req.params.id;
+        var photoID = req.params.idx;
+        var noteID = req.params.noteId;
+        db.note.destroy({
+            where: {
+                id: noteID
+            }
+        }).then(function() {
+            res.redirect("/user/" + userID + "/photo/" + photoID);
+        }).catch(function(e) {
+            res.send({
+                'msg': 'error',
+                'error': e
+            });
         });
-    });
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // get archived photos
 router.get("/:id/archive", function(req, res) {
-  userID = req.params.id;
-  db.user.findById(userID).then(function(user) {
-    db.image.findAll({
-      where: {
-        hidden: "yes"
-      }
-    }).then(function(images) {
-      var photos = images;
-      var thisUser = user;
-      res.render("archive", {photos: photos, user: thisUser});
-    });
-  });
+    if (req.user) {
+        userID = req.params.id;
+        db.user.findById(userID).then(function(user) {
+            db.image.findAll({
+                where: {
+                    hidden: "yes"
+                }
+            }).then(function(images) {
+                var photos = images;
+                var thisUser = user;
+                res.render("archive", {
+                    photos: photos,
+                    user: thisUser
+                });
+            });
+        });
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // detail of archived photo
 router.get("/:id/archive/:idx", function(req, res) {
-  var userId = req.params.id;
-  var photoId = req.params.idx;
-  db.user.findById(userId).then(function(user) {
-    db.image.findById(photoId).then(function(image) {
-      image.getTags().then(function(tags) {
-        image.getNotes().then(function(notes) {
-          var photo = image;
-          var thisUser = user;
-          var allTags = tags;
-          var thisNote = notes;
-          res.render("archivedetail", {photo: photo, user: thisUser, note: thisNote, tags: allTags});
+    if (req.user) {
+        var userId = req.params.id;
+        var photoId = req.params.idx;
+        db.user.findById(userId).then(function(user) {
+            db.image.findById(photoId).then(function(image) {
+                image.getTags().then(function(tags) {
+                    image.getNotes().then(function(notes) {
+                        var photo = image;
+                        var thisUser = user;
+                        var allTags = tags;
+                        var thisNote = notes;
+                        res.render("archivedetail", {
+                            photo: photo,
+                            user: thisUser,
+                            note: thisNote,
+                            tags: allTags
+                        });
+                    });
+                });
+            });
         });
-      });
-    });
-  }); 
+    } else {
+        res.redirect('/error');
+    }
 });
-
 // archive selected photo
 router.get("/:id/photo/:idx/hide", function(req, res) {
-  userID = req.params.id;
-  photoID = req.params.idx;
-  db.image.find({
-    where: {
-      id: photoID
+    if (req.user) {
+        userID = req.params.id;
+        photoID = req.params.idx;
+        db.image.find({
+            where: {
+                id: photoID
+            }
+        }).then(function(image) {
+            image.hidden = "yes";
+            image.save().then(function() {
+                res.redirect('/user/' + userID + '/dashboard');
+            });
+        });
+    } else {
+        res.redirect('/error');
     }
-  }).then(function(image){
-    image.hidden = "yes";
-    image.save().then(function() {
-      res.redirect('/user/' + userID + '/dashboard');
-    });
-  });  
 });
-
 // unarchive selected photo
 router.get("/:id/archive/:idx/show", function(req, res) {
-  userID = req.params.id;
-  photoID = req.params.idx;
-  db.image.find({
-    where: {
-      id: photoID
+    if (req.user) {
+        userID = req.params.id;
+        photoID = req.params.idx;
+        db.image.find({
+            where: {
+                id: photoID
+            }
+        }).then(function(image) {
+            image.hidden = null;
+            image.save().then(function() {
+                res.redirect('/user/' + userID + '/dashboard');
+            });
+        });
+    } else {
+        res.redirect('/error');
     }
-  }).then(function(image){
-    image.hidden = null;
-    image.save().then(function() {
-      res.redirect('/user/' + userID + '/dashboard');
-    });
-  });  
 });
-
 // use router in index.js
 module.exports = router;
