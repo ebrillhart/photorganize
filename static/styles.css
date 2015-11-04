@@ -5,7 +5,8 @@
 }
 
 html {
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    font-family: Oxygen, Calibri, Trebuchet, sans-serif;
+    font-weight: 300;
   }
 
 body {
@@ -30,13 +31,10 @@ main {
 	max-height: 400px;
 }
 
-#home, #howTo{
+#home {
 	height: 400px;
 }
 
-#about {
-	height: 300px;
-}
 
 #displayImg {
 	max-height: 450px;
@@ -60,6 +58,11 @@ main {
 
 .brand-logo {
 	margin-left: 10px;
+	font-weight: 300;
+}
+
+#indexLogo {
+	font-weight: 300;
 }
 
 nav {
@@ -83,14 +86,15 @@ footer.page-footer {
     box-shadow: 0 1px 0 0 #000;
 }
 
-h6 a, p a, a i {
+h6 a, p a, a i, span i {
 	color: #01579b;
 	text-decoration: none;
 }
 
-h6 a:hover, p a:hover, a i:hover {
+h6 a:hover, p a:hover, a i:hover, span i:hover {
 	font-size: 1.1em;
 	text-decoration: none;
+	color: #01579b;
 }
 
 a:hover {
@@ -105,3 +109,47 @@ li a, li a:hover {
 	color: white;
 }
 
+i {
+	color: white;
+}
+
+i:hover {
+	color: white;
+}
+
+h4 i {
+	color: black;
+}
+
+.contacticon {
+	font-size: 2em;
+}
+
+.contacticon:hover {
+	font-size: 2.05em;
+}
+
+#iconrow {
+	letter-spacing: 6px;
+}
+
+#aboutImg {
+	max-height: 300px;
+	max-width: 300px;
+}
+
+p.contactInfo a, .contactInfo {
+	color: white;
+}
+
+div.modal-content {
+	color: black;
+}
+
+#tagDisplay, #noteDisplay {
+	margin-left: 60px;
+}
+
+#howToInfo {
+	padding: 20px;
+}
