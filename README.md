@@ -24,6 +24,7 @@ photOrganize was built by Emma Brillhart as a project for General Assembly's Web
 - Heroku (for deployment)
 
 ##### Plug-Ins, Frameworks, and Libraries
+- OAuth
 - jQuery
 - Materialize CSS
 - Material Icons
