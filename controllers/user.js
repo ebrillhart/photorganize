@@ -193,7 +193,7 @@ router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
 // ******************************
 // dashboard search functionality
 // ******************************
-router.post("/:id/dashboard", function(req, res) {
+router.post("/:id/dashboard/tag", function(req, res) {
     var tagName = req.body.tag;
     var userID = req.params.id;
     db.tag.find({
@@ -203,7 +203,7 @@ router.post("/:id/dashboard", function(req, res) {
     }).then(function(tag) {
         tag.getImages({
             where: {
-                hidden: null
+                hidden: null,
                 userId: userID
             }
         }).then(function(images) {
