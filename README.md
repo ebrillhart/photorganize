@@ -13,3 +13,35 @@ Don't feel the need to keep track of a photo you've liked? Archive it. This will
 
 ## About
 photOrganize was built by Emma Brillhart as a project for General Assembly's Web Design Immersive Course. The concept for the site was borne out of frustration over not being able to easily use photos liked on Instagram as a bookmark or reminder (particularly for good-looking restaurants!).
+
+### Technologies Used
+##### Primary
+- HTML5/CSS3 
+- JavaScript 
+- Node.js
+- Postgres
+- Instagram API
+- Heroku (for deployment)
+
+##### Plug-Ins, Frameworks, and Libraries
+- jQuery
+- Materialize CSS
+- Material Icons
+- FontAwesome Icons
+- Google Fonts
+- Express, EJS, Express-EJS-Layouts, Body-Parser, Express-Session
+- Sequelize, PG, PG-Hstore
+- Passport, Passport-Instagam
+- Instagram-Node
+
+### User Stories
+###### Fashion Follower
+This Instagram user follows a lot of fashion bloggers, or perhaps is a fashion blogger herself. When she sees an outfit or style that she likes, she wants to be able to reference it in the future. photOrganize allows her to add tags based on season, clothing item, etc. and add notes about styling.
+###### Foodie
+This user is always looking for new restaurants to try in her city and others, and uses Instagram as a primary way of finding them. With photOrganize, she can add tags for things like city and cuisine and easily track them later when she goes on a trip or is craving a particular type of food.
+
+### Wireframes and Database Modeling
+ERDs accessible here: https://drive.google.com/file/d/0BwTLtk98IjeBZlUwNDBHS3RGQUU/view?usp=sharing
+Wireframes here: 
+
+## Future Plans
