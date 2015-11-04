@@ -196,6 +196,7 @@ router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
 router.post("/:id/dashboard/tag", function(req, res) {
     var tagName = req.body.tag;
     var userID = req.params.id;
+    console.log(tagName);
     db.tag.find({
         where: {
             tag: tagName
