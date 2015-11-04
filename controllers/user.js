@@ -209,10 +209,14 @@ router.post("/:id/dashboard/tag", function(req, res) {
         }).then(function(images) {
             var photoArray = images;
             var thisUser = user;
-            res.render("dashboard", {
-                photos: photoArray,
-                user: thisUser
-            });
+            if (photoArray == []) {
+                alert("There are no tags for that search!");
+            } else {
+                res.render("dashboard", {
+                    photos: photoArray,
+                    user: thisUser
+                });
+            }
         })
     });
 });
