@@ -105,7 +105,7 @@ router.get("/:id/dashboard", function(req, res) {
 // see current user profile
 // ************************
 router.get("/:id/profile", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         userID = req.params.id;
         db.user.findById(userID).then(function(user) {
             var thisUser = user;
@@ -121,7 +121,7 @@ router.get("/:id/profile", function(req, res) {
 // see detail of dashboard photo
 // ******************************
 router.get("/:id/photo/:idx", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         var userId = req.params.id;
         var photoId = req.params.idx;
         db.user.findById(userId).then(function(user) {
@@ -169,7 +169,7 @@ router.post("/:id/photo/:idx/tag", function(req, res) {
 // delete tag from photo
 // *********************
 router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         var userID = req.params.id;
         var photoID = req.params.idx;
         var tagID = req.params.tagid;
@@ -246,7 +246,7 @@ router.post("/:id/photo/:idx/note", function(req, res) {
 // delete note from photo
 // **********************
 router.get("/:id/photo/:idx/note/:noteId", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         var userID = req.params.id;
         var photoID = req.params.idx;
         var noteID = req.params.noteId;
@@ -270,7 +270,7 @@ router.get("/:id/photo/:idx/note/:noteId", function(req, res) {
 // get archived photos
 // *******************
 router.get("/:id/archive", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         userID = req.params.id;
         db.user.findById(userID).then(function(user) {
             db.image.findAll({
@@ -295,7 +295,7 @@ router.get("/:id/archive", function(req, res) {
 // detail of archived photo
 // ************************
 router.get("/:id/archive/:idx", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         var userId = req.params.id;
         var photoId = req.params.idx;
         db.user.findById(userId).then(function(user) {
@@ -324,7 +324,7 @@ router.get("/:id/archive/:idx", function(req, res) {
 // archive selected photo
 // **********************
 router.get("/:id/photo/:idx/hide", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         userID = req.params.id;
         photoID = req.params.idx;
         db.image.find({
@@ -345,7 +345,7 @@ router.get("/:id/photo/:idx/hide", function(req, res) {
 // unarchive selected photo
 // ************************
 router.get("/:id/archive/:idx/show", function(req, res) {
-    if (req.user) {
+    if (req.user.id == req.params.id) {
         userID = req.params.id;
         photoID = req.params.idx;
         db.image.find({
