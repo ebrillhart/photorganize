@@ -81,4 +81,4 @@ app.use("/user/", require("./controllers/user"));
 // *************
 // port listener
 // *************
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
