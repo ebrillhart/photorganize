@@ -41,7 +41,11 @@ This Instagram user follows a lot of fashion bloggers, or perhaps is a fashion b
 This user is always looking for new restaurants to try in her city and others, and uses Instagram as a primary way of finding them. With photOrganize, she can add tags for things like city and cuisine and easily track them later when she goes on a trip or is craving a particular type of food.
 
 ### Wireframes and Database Modeling
-ERDs accessible here: https://drive.google.com/file/d/0BwTLtk98IjeBZlUwNDBHS3RGQUU/view?usp=sharing
-Wireframes here: 
+- ERDs accessible here: https://drive.google.com/file/d/0BwTLtk98IjeBZlUwNDBHS3RGQUU/view?usp=sharing
+- Wireframes here: 
+-- https://docs.google.com/document/d/1dE0o0KgzAFERQ1GW8cXV-cI1OLvzrpXSJK78t9Wd_XM/edit?usp=sharing
+-- https://docs.google.com/document/d/1xoBXv0CIJ_YrJcFuiP6llZLg2-HUOH-3J9V2h8LbU0c/edit?usp=sharing
+-- https://docs.google.com/document/d/1sHY3xwfwOqEZxAyVjgcw7_GqV26PlYQA6hN8O7k-P98/edit?usp=sharing
 
 ## Future Plans
+Future plans involve maintaining functionality and exploring conversion of the site into an iOS and/or Android native app.
