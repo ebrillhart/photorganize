@@ -1,3 +1,6 @@
+// *********************************
+// adding dependencies and libraries
+// *********************************
 var express = require("express");
 var router = express.Router();
 var request = require("request");
@@ -10,11 +13,13 @@ router.use(bodyParser.urlencoded({
     extended: false
 }));
 router.use(flash());
+// set express session
 router.use(session({
     secret: 'super secret',
     resave: false,
     saveUninitialized: true
 }));
+// set locals
 router.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.alerts = req.flash();
@@ -27,23 +32,28 @@ router.use(function(req, res, next) {
 // see current user dashboard of photos
 // ************************************
 router.get("/:id/dashboard", function(req, res) {
-    if (req.user) {
+    if (req.user) { // if the user is logged in
         var userId = req.params.id;
+        // find the user in DB
         db.user.findById(userId).then(function(user) {
             ig.use({
                 access_token: user.token
             });
+            // use API to find pictures that user has liked
             ig.user_self_liked(hdl = function(err, medias, pagination, remaining, limit) {
                 var isDone = 0;
                 if (pagination.next) {
                     pagination.next(hdl); // Will get second page results 
                 }
+                // add new photos to the database & find photos associated with user already
+                // saved
                 medias.forEach(function(photo) {
                     var imgID = photo.id;
                     db.image.findOrCreate({
                         where: {
                             imgId: imgID
                         },
+                        // set defaults for DB storage
                         defaults: {
                             lat: photo.location ? photo.location.latitude : null,
                             long: photo.location ? photo.location.longitude : null,
@@ -63,13 +73,18 @@ router.get("/:id/dashboard", function(req, res) {
                             db.image.findAll({
                                 where: {
                                     userId: userId,
+                                    // only display photos with hidden: null
                                     hidden: null
                                 },
+                                order: [
+                                    ['id', 'DESC'],
+                                ]
                             }).then(function(images) {
                                 db.tag.findAll().then(function(tags) {
                                     var allTags = tags;
                                     var photoArray = images;
                                     var thisUser = user;
+                                    // render the dashboard for given user
                                     res.render("dashboard", {
                                         photos: photoArray,
                                         user: thisUser,
@@ -83,10 +98,12 @@ router.get("/:id/dashboard", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror'); // error message if not current user
     }
 });
+// ************************
 // see current user profile
+// ************************
 router.get("/:id/profile", function(req, res) {
     if (req.user) {
         userID = req.params.id;
@@ -97,10 +114,12 @@ router.get("/:id/profile", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
-// see detail of unarchived photo
+// ******************************
+// see detail of dashboard photo
+// ******************************
 router.get("/:id/photo/:idx", function(req, res) {
     if (req.user) {
         var userId = req.params.id;
@@ -124,10 +143,12 @@ router.get("/:id/photo/:idx", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
+// ********************
 // add new tag to photo
+// ********************
 router.post("/:id/photo/:idx/tag", function(req, res) {
     var userID = req.params.id;
     var photoID = req.params.idx;
@@ -144,7 +165,9 @@ router.post("/:id/photo/:idx/tag", function(req, res) {
         });
     });
 });
+// *********************
 // delete tag from photo
+// *********************
 router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
     if (req.user) {
         var userID = req.params.id;
@@ -164,19 +187,25 @@ router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
-// path to see all images for a tag name
+// ******************************
+// dashboard search functionality
+// ******************************
 router.post("/:id/dashboard/tag", function(req, res) {
     var tagName = req.body.tag;
     var userID = req.params.id;
     db.tag.find({
         where: {
-            tag: tagName
+            tag: tagName      
         }
     }).then(function(tag) {
-        tag.getImages().then(function(images) {
+        tag.getImages({
+            where: {
+                hidden: null
+            }
+        }).then(function(images) {
             db.user.find({
                 where: {
                     id: userID
@@ -192,7 +221,9 @@ router.post("/:id/dashboard/tag", function(req, res) {
         });
     });
 });
-// add new note to unarchived photo
+// *******************************
+// add new note to dashboard photo
+// *******************************
 router.post("/:id/photo/:idx/note", function(req, res) {
     var userID = req.params.id;
     var photoID = req.params.idx;
@@ -211,7 +242,9 @@ router.post("/:id/photo/:idx/note", function(req, res) {
         });
     });
 });
+// **********************
 // delete note from photo
+// **********************
 router.get("/:id/photo/:idx/note/:noteId", function(req, res) {
     if (req.user) {
         var userID = req.params.id;
@@ -230,17 +263,20 @@ router.get("/:id/photo/:idx/note/:noteId", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
+// *******************
 // get archived photos
+// *******************
 router.get("/:id/archive", function(req, res) {
     if (req.user) {
         userID = req.params.id;
         db.user.findById(userID).then(function(user) {
             db.image.findAll({
                 where: {
-                    hidden: "yes"
+                    hidden: "yes",
+                    userId: userID
                 }
             }).then(function(images) {
                 var photos = images;
@@ -252,10 +288,12 @@ router.get("/:id/archive", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
+// ************************
 // detail of archived photo
+// ************************
 router.get("/:id/archive/:idx", function(req, res) {
     if (req.user) {
         var userId = req.params.id;
@@ -279,10 +317,12 @@ router.get("/:id/archive/:idx", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
+// **********************
 // archive selected photo
+// **********************
 router.get("/:id/photo/:idx/hide", function(req, res) {
     if (req.user) {
         userID = req.params.id;
@@ -298,10 +338,12 @@ router.get("/:id/photo/:idx/hide", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
+// ************************
 // unarchive selected photo
+// ************************
 router.get("/:id/archive/:idx/show", function(req, res) {
     if (req.user) {
         userID = req.params.id;
@@ -317,8 +359,10 @@ router.get("/:id/archive/:idx/show", function(req, res) {
             });
         });
     } else {
-        res.redirect('/error');
+        res.redirect('/permissionerror');
     }
 });
+// **********************
 // use router in index.js
+// **********************
 module.exports = router;

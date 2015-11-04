@@ -1,101 +1,114 @@
+<!-- ****** -->
 <!-- navbar -->
+<!-- ****** -->
 <div class="navbar-fixed">
-	<nav>
-	  <div class="nav-wrapper">
-	    <a href="/" class="brand-logo">photOrganize</a>
-	    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-	    <ul class="right hide-on-med-and-down">
-	    	<li><a href="<%= '/user/' + user.id + '/dashboard' %>">Dashboard</a></li>
-	    	<li><a href="<%= '/user/' + user.id + '/profile' %>">Profile</a></li>
-	    	<li><a href="/logout">Logout</a></li>
-	    </ul>
-	    <ul class="side-nav" id="mobile-demo">
-	    	<li><a href="<%= '/user/' + user.id + '/dashboard' %>">Dashboard</a></li>
-	    	<li><a href="<%= '/user/' + user.id + '/profile' %>">Profile</a></li>
-	    	<li><a href="/logout">Logout</a></li>
-      	</ul>
-	  </div>
-	</nav>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">photOrganize</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="<%= '/user/' + user.id + '/dashboard' %>">Dashboard</a></li>
+                <li><a href="<%= '/user/' + user.id + '/profile' %>">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="<%= '/user/' + user.id + '/dashboard' %>">Dashboard</a></li>
+                <li><a href="<%= '/user/' + user.id + '/profile' %>">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 </div>
-
+<!-- ************** -->
 <!-- photo info div -->
+<!-- ************** -->
 <main>
-<div class="container z-depth-3" id="displayCon">
-	<div class="row valign-wrapper">
-		<div class="col s6">
-			<h5><%= photo.posterName %></h5>
-			<% if(photo.locationName != null) { %>
-				<h6><a target="_blank" href="https://www.google.com/maps/search/<%= photo.locationName %>/@<%= photo.lat %>,<%= photo.long %>"><%= photo.locationName %></a></h6>
-			<% } %>
-			<img class="responsive-img" id="displayImg" src="<%= photo.standardRes %>">
-			<h6><%= photo.likeCount %> likes</h6>
-			<h6><%= photo.caption %></h6>
-			<h6><a href="<%= photo.link %>" target="_blank">View on Instagram</a></h6>
-		</div>
-		<!-- add tags -->
-		<div class="col s6 m6 l6">
-			<div class="row valign">
-				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
-					<form class="center-align" action="/user/<%= user.id %>/photo/<%= photo.id %>/tag" method="POST" autocomplete="off">
-	        			<div class="form-group input-field">
-	         				<input type="text" placeholder="Add Tag" length="20" name="tag">
-	        			</div>
-	      			</form>
-				</div>
-			</div>
-			<!-- display and remove tags -->
-			<div class="row">
-				<div class="container" id="tagDisplay">
-					<% tags.forEach(function(tag) { %>
-						<div class="col s5 m5 l5">
-							<div class="chip valign-wrapper">
-								<%= tag.tag %> 
-								<a class="vertical-align" href="/user/<%= user.id %>/photo/<%= photo.id %>/tag/<%= tag.id %>"><i class="material-icons tiny vertical-align">close</i></a>
-							</div>
-						</div>
-					<% }); %>
-		  		</div>	
-			</div>
-			<!-- add/edit notes -->
-			<div class="row">
-				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
-					<form class="center-align" action="/user/<%= user.id %>/photo/<%= photo.id %>/note" method="POST" autocomplete="off">
-	        			<div class="form-group input-field">
-	         				<input type="text" placeholder="Add Note" length="50" name="note"></input>
-	        			</div>
-	      			</form>
-				</div>
-			</div>
-			<!-- display notes -->
-			<div class="row">
-				<div class="container" id="noteDisplay">
-					<div class="col s10 m10 l12 offset-s1 offset-m1">
-						<ul>
-							<% notes.forEach(function(note) { %>
-								<li><%= note.noteText %> <a href="/user/<%= user.id %>/photo/<%= photo.id %>/note/<%= note.id %>"><i class="material-icons tiny vertical-align">close</i></a></li>
-							<% }); %>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!-- archive button -->
-			<div class="row">
-				<div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3 center-align">
-					<a class="waves-effect waves-light btn center-align light-blue darken-4" href="<%= '/user/' + user.id + '/photo/' + photo.id + '/hide' %>">Archive</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="container z-depth-3" id="displayCon">
+        <div class="row valign-wrapper">
+            <div class="col s6">
+                <h5><%= photo.posterName %></h5>
+                <% if(photo.locationName != null) { %>
+                <h6><a target="_blank" href="https://www.google.com/maps/search/<%= photo.locationName %>/@<%= photo.lat %>,<%= photo.long %>"><%= photo.locationName %></a></h6>
+                <% } %>
+                <img class="responsive-img" id="displayImg" src="<%= photo.standardRes %>">
+                <h6><%= photo.likeCount %> likes</h6>
+                <h6><%= photo.caption %></h6>
+                <h6><a href="<%= photo.link %>" target="_blank">View on Instagram</a></h6>
+            </div>
+            <!-- ******** -->
+            <!-- add tags -->
+            <!-- ******** -->
+            <div class="col s6 m6 l6">
+                <div class="row valign">
+                    <div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
+                        <form class="center-align" action="/user/<%= user.id %>/photo/<%= photo.id %>/tag" method="POST" autocomplete="off">
+                            <div class="form-group input-field">
+                                <input type="text" placeholder="Add Tag" length="20" name="tag">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- *********************** -->
+                <!-- display and remove tags -->
+                <!-- *********************** -->
+                <div class="row">
+                    <div class="container" id="tagDisplay">
+                        <% tags.forEach(function(tag) { %>
+                        <div class="col s5 m5 l5">
+                            <div class="chip valign-wrapper">
+                                <%= tag.tag %>
+                                <a class="vertical-align" href="/user/<%= user.id %>/photo/<%= photo.id %>/tag/<%= tag.id %>"><i class="material-icons tiny vertical-align">close</i></a>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>
+                <!-- ************** -->
+                <!-- add/edit notes -->
+                <!-- ************** -->
+                <div class="row">
+                    <div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
+                        <form class="center-align" action="/user/<%= user.id %>/photo/<%= photo.id %>/note" method="POST" autocomplete="off">
+                            <div class="form-group input-field">
+                                <input type="text" placeholder="Add Note" length="50" name="note"></input>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ************* -->
+                <!-- display notes -->
+                <!-- ************* -->
+                <div class="row">
+                    <div class="container" id="noteDisplay">
+                        <div class="col s10 m10 l12 offset-s1 offset-m1">
+                            <ul>
+                                <% notes.forEach(function(note) { %>
+                                <li><%= note.noteText %> <a href="/user/<%= user.id %>/photo/<%= photo.id %>/note/<%= note.id %>"><i class="material-icons tiny vertical-align">close</i></a></li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ************** -->
+                <!-- archive button -->
+                <!-- ************** -->
+                <div class="row">
+                    <div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3 center-align">
+                        <a class="waves-effect waves-light btn center-align light-blue darken-4" href="<%= '/user/' + user.id + '/photo/' + photo.id + '/hide' %>">Archive</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
-
+<!-- ********** -->
 <!-- footer div -->
-<!-- footer div -->
+<!-- ********** -->
 <footer class="page-footer hide-on-med-and-down">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-            	<h5 class="white-text">Contact</h5>
+                <h5 class="white-text">Contact</h5>
                 <h6 id="iconrow"><a href="https://github.com/ebrillhart/photorganize" target="_blank" class="contacticon"><i class="fa fa-github-square"></i></a> <a href="http://instagram.com/ebrillhart/" class="contacticon" target="_blank"><i class="fa fa-instagram"></i></a> <a href="https://twitter.com/emmabrillhart" class="contacticon" target="_blank"><i class="fa fa-twitter-square"></i></a> <a href="https://www.linkedin.com/in/emmabrillhart" class="contacticon" target="_blank"><i class="fa fa-linkedin-square"></i></a></h6>
                 <p class="contactInfo"><a href="http://ebrillhart.github.io/">ebrillhart.github.io/</a></p>
                 <p class="contactInfo">emma.brillhart@gmail.com</p>
@@ -106,19 +119,18 @@
         <div class="container">
             © Copyright 2015. All rights reserved.
             <!-- Modal Trigger -->
-  			<a class="grey-text text-lighten-4 right modal-trigger" href="#modal1">Privacy Policy</a>
-
-		    <!-- Modal Structure -->
-	    	<div id="modal1" class="modal">
-	    		<div class="modal-content">
-	      			<h4>Privacy at photOrganize</h4>
-	      				<p>No Instagram data accessed by photOrganize will be shared with advertisers or other third parties.</p> 
-	      				<p>As per Instagram's terms of service, all of the media that you create is your own.</p>
-	   			</div>
-	    		<div class="modal-footer">
-	      			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-	    		</div>
-	  		</div>
+            <a class="grey-text text-lighten-4 right modal-trigger" href="#modal1">Privacy Policy</a>
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Privacy at photOrganize</h4>
+                    <p>No Instagram data accessed by photOrganize will be shared with advertisers or other third parties.</p>
+                    <p>As per Instagram's terms of service, all of the media that you create is your own.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

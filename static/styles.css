@@ -1,8 +1,10 @@
-@media (max-width: 700px) {
-    #displayImg {
-        padding-right: 30px;
-    }
-}
+/***********************/
+
+
+/*styling for full site*/
+
+
+/***********************/
 
 html {
     font-family: Oxygen, Calibri, Trebuchet, sans-serif;
@@ -19,65 +21,10 @@ main {
     flex: 1 0 auto;
 }
 
-.parallax img {
-    max-width: 800px;
-}
-
-.parallax-container#pOne {
-    max-height: 200px;
-}
-
-.parallax-container {
-    max-height: 400px;
-}
-
-#home {
-    height: 400px;
-}
-
-#displayImg {
-    max-height: 450px;
-    max-width: 450px;
-}
-
-#profPic {
-    max-height: 400px;
-    max-width: 400px;
-}
-
 #displayCon, #profileCon, #errorCon {
     margin-top: 50px;
     margin-bottom: 30px;
     padding: 30px 30px 10px 30px;
-}
-
-#tag {
-    border: 1px solid black;
-}
-
-.brand-logo {
-    margin-left: 10px;
-    font-weight: 300;
-}
-
-#indexLogo {
-    font-weight: 300;
-}
-
-nav {
-    background-color: #26c6da;
-}
-
-footer.page-footer {
-    background-color: #26c6da;
-}
-
-.profInfo {
-    padding: 20px;
-}
-
-#archiveCon {
-    margin-top: 20px;
 }
 
 .input-field input[type=text]:focus {
@@ -120,6 +67,21 @@ h4 i {
     color: black;
 }
 
+
+/*navbar site-wide*/
+
+.brand-logo {
+    margin-left: 10px;
+    font-weight: 300;
+}
+
+nav {
+    background-color: #26c6da;
+}
+
+
+/*footer bar site-wide*/
+
 .contacticon {
     font-size: 2em;
 }
@@ -132,9 +94,8 @@ h4 i {
     letter-spacing: 6px;
 }
 
-#aboutImg {
-    max-height: 300px;
-    max-width: 300px;
+footer.page-footer {
+    background-color: #26c6da;
 }
 
 p.contactInfo a, .contactInfo {
@@ -145,10 +106,112 @@ div.modal-content {
     color: black;
 }
 
-#tagDisplay, #noteDisplay {
-    margin-left: 60px;
+
+/****************************/
+
+
+/*styling for index/homepage*/
+
+
+/****************************/
+
+.parallax img {
+    max-width: 800px;
+}
+
+.parallax-container#pOne {
+    max-height: 200px;
+}
+
+.parallax-container {
+    max-height: 400px;
+}
+
+#home {
+    height: 400px;
+}
+
+#indexLogo {
+    font-weight: 300;
+}
+
+#aboutImg {
+    max-height: 300px;
+    max-width: 300px;
 }
 
 #howToInfo {
     padding: 20px;
+}
+
+
+/****************************/
+
+
+/*styling for dashboard page*/
+
+
+/****************************/
+
+div#searchIcon i {
+    color: #01579b;
+}
+
+
+/*******************************************************/
+
+
+/*styling for dashboard detail and archive detail pages*/
+
+
+/*******************************************************/
+
+@media (max-width: 700px) {
+    #displayImg {
+        padding-right: 30px;
+    }
+}
+
+#displayImg {
+    max-height: 450px;
+    max-width: 450px;
+}
+
+#tag {
+    border: 1px solid black;
+}
+
+#tagDisplay, #noteDisplay {
+    margin-left: 60px;
+}
+
+
+/**************************/
+
+
+/*styling for profile page*/
+
+
+/**************************/
+
+#profPic {
+    max-height: 400px;
+    max-width: 400px;
+}
+
+.profInfo {
+    padding: 20px;
+}
+
+
+/**************************/
+
+
+/*styling for archive page*/
+
+
+/**************************/
+
+#archiveCon {
+    margin-top: 20px;
 }
