@@ -210,7 +210,7 @@ router.post("/:id/dashboard/tag", function(req, res) {
         }).then(function(images) {
             var photoArray = images;
             var thisUser = user;
-                res.redirect("/user/" + userID + "dashboard", {
+                res.redirect("/user/" + userID + "/dashboard", {
                     photos: photoArray,
                     user: thisUser
                 });
