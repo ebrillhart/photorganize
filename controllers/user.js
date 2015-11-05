@@ -203,28 +203,29 @@ router.post("/:id/dashboard/search", function(req, res) {
         }
     }).then(function(tag) {
         if (tag.tag == tagName) {
-        tag.getImages({
-            where: {
-                hidden: null,
-                userId: userID
-            }
-        }).then(function(images) {
-            db.user.find({
+            tag.getImages({
                 where: {
-                    id: userID
+                    hidden: null,
+                    userId: userID
                 }
-            }).then(function(user) {
-                var photoArray = images;
-                var thisUser = user;
-                res.render("dashboard", {
-                    photos: photoArray,
-                    user: thisUser
-                });        
+            }).then(function(images) {
+                db.user.find({
+                    where: {
+                        id: userID
+                    }
+                }).then(function(user) {
+                    var photoArray = images;
+                    var thisUser = user;
+                    res.render("dashboard", {
+                        photos: photoArray,
+                        user: thisUser
+                    });
+                });
             });
-        });
-       } else {
+        }
+    }).catch(function(err) {
+        req.flash("You haven't added that tag to any dashboard pictures.");
         res.redirect("/user/" + userID + "/dashboard");
-       }
     });
 });
 // *******************************

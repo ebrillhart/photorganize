@@ -8,7 +8,11 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/">Home</a></li>
-                <li><a href="/auth/instagram">Log In With Instagram</a></li>
+                <% if (currentUser) { %>
+                    <li><a href="/user/<%= currentUser.id %>/dashboard"><%= currentUser.username %></a></li>
+                <% } else if (!currentUser) { %>
+                    <li><a href="/auth/instagram">Log In With Instagram</a></li>
+                <% } %>
                 <li><a href="#howTo">How-To</a></li>
                 <li><a href="#about">About</a></li>
             </ul>

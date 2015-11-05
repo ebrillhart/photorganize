@@ -5,6 +5,7 @@ module.exports = {
         clientID: process.env.INSTAGRAM_CLIENT_ID,
         clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
         callbackURL: 'https://photorganize.herokuapp.com/auth/instagram/callback'
+        
     }, function(accessToken, refreshToken, profile, done) {
         var username = profile.username;
         db.user.findOrCreate({
