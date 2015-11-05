@@ -202,6 +202,7 @@ router.post("/:id/dashboard/search", function(req, res) {
             tag: tagName
         }
     }).then(function(tag) {
+        if (tag.tag == tagName) {
         tag.getImages({
             where: {
                 hidden: null,
@@ -218,9 +219,12 @@ router.post("/:id/dashboard/search", function(req, res) {
                 res.render("dashboard", {
                     photos: photoArray,
                     user: thisUser
-                });
+                });        
             });
         });
+       } else {
+        res.redirect("/user/" + userID + "/dashboard");
+       }
     });
 });
 // *******************************
