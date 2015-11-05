@@ -193,7 +193,7 @@ router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
 // ******************************
 // dashboard search functionality
 // ******************************
-router.post("/:id/dashboard/tag", function(req, res) {
+router.post("/:id/dashboard/search", function(req, res) {
     var tagName = req.body.tag;
     var userID = req.params.id;
     console.log(tagName);
@@ -208,13 +208,19 @@ router.post("/:id/dashboard/tag", function(req, res) {
                 userId: userID
             }
         }).then(function(images) {
-            var photoArray = images;
-            var thisUser = user;
-                res.redirect("/user/" + userID + "/dashboard", {
+            db.user.find({
+                where: {
+                    id: userID
+                }
+            }).then(function(user) {
+                var photoArray = images;
+                var thisUser = user;
+                res.render("dashboard", {
                     photos: photoArray,
                     user: thisUser
                 });
-        })
+            });
+        });
     });
 });
 // *******************************
