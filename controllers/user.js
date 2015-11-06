@@ -399,6 +399,16 @@ router.get("/:id/archive/:idx/show", function(req, res) {
         res.redirect('/permissionerror');
     }
 });
+// *********************
+// 404 error page return
+// *********************
+app.use(function(req, res, next){
+  res.status(404);
+  if (req.accepts('html')) {
+    res.render('nonexistentpage', { url: req.url });
+    return;
+  }
+});
 // **********************
 // use router in index.js
 // **********************
