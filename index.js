@@ -38,11 +38,11 @@ app.use(function(req, res, next) {
 // *********************
 // 404 error page return
 // *********************
-app.use(function(req, res, next){
-    res.status(404);
-    res.redirect('/invalidpage');
-    next();
-});
+// app.use(function(req, res, next){
+//     res.status(404);
+//     res.redirect('/invalidpage');
+//     next();
+// });
 // **************
 // homepage route
 // **************
