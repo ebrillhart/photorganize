@@ -125,7 +125,12 @@ router.get("/:id/photo/:idx", function(req, res) {
         var userId = req.params.id;
         var photoId = req.params.idx;
         db.user.findById(userId).then(function(user) {
-            db.image.findById(photoId).then(function(image) {
+            db.image.find({
+                where: {
+                    id: photoId,
+                    userId: userId
+                }
+            }).then(function(image) {
                 image.getTags().then(function(tags) {
                     image.getNotes().then(function(notes) {
                         var photo = image;
@@ -155,7 +160,12 @@ router.post("/:id/photo/:idx/tag", function(req, res) {
     var userID = req.params.id;
     var photoID = req.params.idx;
     var newTag = req.body.tag;
-    db.image.findById(photoID).then(function(image) {
+    db.image.find({
+        where: {
+            id: photoID,
+            userId: userID
+        }
+    }).then(function(image) {
         db.tag.findOrCreate({
             where: {
                 tag: newTag
@@ -240,7 +250,8 @@ router.post("/:id/photo/:idx/note", function(req, res) {
     console.log(newNote);
     db.image.find({
         where: {
-            id: photoID
+            id: photoID,
+            userId: userID
         }
     }).then(function(image) {
         image.createNote({
@@ -308,7 +319,12 @@ router.get("/:id/archive/:idx", function(req, res) {
         var userId = req.params.id;
         var photoId = req.params.idx;
         db.user.findById(userId).then(function(user) {
-            db.image.findById(photoId).then(function(image) {
+            db.image.findById({
+                where: {
+                    id: photoId,
+                    userId: userId
+                }
+            }).then(function(image) {
                 image.getTags().then(function(tags) {
                     image.getNotes().then(function(notes) {
                         var photo = image;
@@ -338,7 +354,8 @@ router.get("/:id/photo/:idx/hide", function(req, res) {
         photoID = req.params.idx;
         db.image.find({
             where: {
-                id: photoID
+                id: photoID,
+                userId: userID
             }
         }).then(function(image) {
             image.hidden = "yes";
@@ -359,7 +376,8 @@ router.get("/:id/archive/:idx/show", function(req, res) {
         photoID = req.params.idx;
         db.image.find({
             where: {
-                id: photoID
+                id: photoID,
+                userId: userID
             }
         }).then(function(image) {
             image.hidden = null;
