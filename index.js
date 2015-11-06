@@ -35,6 +35,14 @@ app.use(function(req, res, next) {
     res.locals.alerts = req.flash();
     next();
 });
+// *********************
+// 404 error page return
+// *********************
+app.use(function(req, res, next){
+    res.status(404);
+    res.redirect('/invalidpage');
+    next();
+});
 // **************
 // homepage route
 // **************
@@ -79,14 +87,6 @@ app.get('/logout', function(req, res) {
     req.logout();
     req.flash('info', 'You have been logged out.');
     res.redirect('/');
-});
-// *********************
-// 404 error page return
-// *********************
-app.use(function(req, res, next){
-    res.status(404);
-    res.redirect('/invalidpage');
-    next();
 });
 // ************************
 // accesses user controller
