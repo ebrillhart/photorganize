@@ -100,6 +100,8 @@ router.get("/:id/dashboard", function(req, res) {
     } else {
         res.redirect('/permissionerror'); // error message if not current user
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // ************************
 // see current user profile
@@ -116,6 +118,8 @@ router.get("/:id/profile", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // ******************************
 // see detail of dashboard photo
@@ -152,6 +156,8 @@ router.get("/:id/photo/:idx", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // ********************
 // add new tag to photo
@@ -178,6 +184,8 @@ router.post("/:id/photo/:idx/tag", function(req, res) {
     }).catch(function(err) {
         res.redirect("/permissionerror");
     });
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // *********************
 // delete tag from photo
@@ -203,6 +211,8 @@ router.get("/:id/photo/:idx/tag/:tagid", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // ******************************
 // dashboard search functionality
@@ -241,6 +251,8 @@ router.post("/:id/dashboard/search", function(req, res) {
         req.flash("You haven't added that tag to any dashboard pictures.");
         res.redirect("/user/" + userID + "/dashboard");
     });
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // *******************************
 // add new note to dashboard photo
@@ -263,6 +275,8 @@ router.post("/:id/photo/:idx/note", function(req, res) {
             res.redirect("/user/" + userID + "/photo/" + photoID);
         });
     });
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // **********************
 // delete note from photo
@@ -287,6 +301,8 @@ router.get("/:id/photo/:idx/note/:noteId", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // *******************
 // get archived photos
@@ -314,6 +330,8 @@ router.get("/:id/archive", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // ************************
 // detail of archived photo
@@ -350,6 +368,8 @@ router.get("/:id/archive/:idx", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // **********************
 // archive selected photo
@@ -374,6 +394,8 @@ router.get("/:id/photo/:idx/hide", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // ************************
 // unarchive selected photo
@@ -398,6 +420,8 @@ router.get("/:id/archive/:idx/show", function(req, res) {
     } else {
         res.redirect('/permissionerror');
     }
+}).catch(function(err) {
+    res.redirect("/invalidpage");
 });
 // **********************
 // use router in index.js
