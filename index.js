@@ -35,7 +35,6 @@ app.use(function(req, res, next) {
     res.locals.alerts = req.flash();
     next();
 });
-
 // **************
 // homepage route
 // **************
@@ -88,7 +87,7 @@ app.use("/user/", require("./controllers/user"));
 // *********************
 // 404 error page return
 // *********************
-app.use(function(req, res, next){
+app.use(function(req, res, next) {
     res.status(404);
     res.redirect('/invalidpage');
     next();
