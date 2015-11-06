@@ -146,7 +146,7 @@ router.get("/:id/photo/:idx", function(req, res) {
                     });
                 });
             }).catch(function(err) {
-                res.redirect("/invalidpage");
+                res.redirect("/permissionerror");
             });
         });
     } else {
@@ -175,6 +175,8 @@ router.post("/:id/photo/:idx/tag", function(req, res) {
                 res.redirect("/user/" + userID + "/photo/" + photoID)
             });
         });
+    }).catch(function(err) {
+        res.redirect("/permissionerror");
     });
 });
 // *********************
@@ -305,6 +307,8 @@ router.get("/:id/archive", function(req, res) {
                     photos: photos,
                     user: thisUser
                 });
+            }).catch(function(err) {
+                res.redirect("/permissionerror");
             });
         });
     } else {
@@ -339,6 +343,8 @@ router.get("/:id/archive/:idx", function(req, res) {
                         });
                     });
                 });
+            }).catch(function(err) {
+                res.redirect("/permissionerror");
             });
         });
     } else {
@@ -362,6 +368,8 @@ router.get("/:id/photo/:idx/hide", function(req, res) {
             image.save().then(function() {
                 res.redirect('/user/' + userID + '/dashboard');
             });
+        }).catch(function(err) {
+            res.redirect("/permissionerror");
         });
     } else {
         res.redirect('/permissionerror');
@@ -384,6 +392,8 @@ router.get("/:id/archive/:idx/show", function(req, res) {
             image.save().then(function() {
                 res.redirect('/user/' + userID + '/dashboard');
             });
+        }).catch(function(err) {
+            res.redirect("/invalidpage");
         });
     } else {
         res.redirect('/permissionerror');
