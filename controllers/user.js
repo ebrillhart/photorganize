@@ -404,7 +404,8 @@ router.get("/:id/archive/:idx/show", function(req, res) {
 // *********************
 app.use(function(req, res, next){
     res.status(404);
-    res.render('/invalidpage')
+    res.render('/invalidpage');
+    next();
 });
 // **********************
 // use router in index.js
