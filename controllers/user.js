@@ -51,7 +51,8 @@ router.get("/:id/dashboard", function(req, res) {
                     var imgID = photo.id;
                     db.image.findOrCreate({
                         where: {
-                            imgId: imgID
+                            imgId: imgID,
+                            userId: userId
                         },
                         // set defaults for DB storage
                         defaults: {
@@ -60,7 +61,6 @@ router.get("/:id/dashboard", function(req, res) {
                             locationName: photo.location ? photo.location.name : null,
                             caption: photo.caption ? photo.caption.text : null,
                             link: photo.link,
-                            userId: userId,
                             likeCount: photo.likes ? photo.likes.count : null,
                             thumbnail: photo.images.thumbnail.url,
                             standardRes: photo.images.standard_resolution.url,
