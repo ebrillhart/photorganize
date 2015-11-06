@@ -67,6 +67,12 @@ app.get('/permissionerror', function(req, res) {
     res.render("permissionerror");
 });
 // ************************************
+// error message if page does not exist
+// ************************************
+app.get('/invalidpage', function(req, res) {
+    res.render('nonexistentpage');
+});
+// ************************************
 // logs out the user from their session
 // ************************************
 app.get('/logout', function(req, res) {

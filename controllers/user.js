@@ -140,6 +140,8 @@ router.get("/:id/photo/:idx", function(req, res) {
                         });
                     });
                 });
+            }).catch(function(err) {
+                res.redirect("/invalidpage");
             });
         });
     } else {
