@@ -25,14 +25,6 @@ router.use(function(req, res, next) {
     res.locals.alerts = req.flash();
     next();
 });
-// *********************
-// 404 error page return
-// *********************
-// app.use(function(req, res, next){
-//     res.status(404);
-//     res.render('/invalidpage');
-//     next();
-// });
 // *****************
 // ROUTES FROM /USER
 // *****************

@@ -35,14 +35,7 @@ app.use(function(req, res, next) {
     res.locals.alerts = req.flash();
     next();
 });
-// *********************
-// 404 error page return
-// *********************
-// app.use(function(req, res, next){
-//     res.status(404);
-//     res.redirect('/invalidpage');
-//     next();
-// });
+
 // **************
 // homepage route
 // **************
@@ -92,6 +85,14 @@ app.get('/logout', function(req, res) {
 // accesses user controller
 // ************************
 app.use("/user/", require("./controllers/user"));
+// *********************
+// 404 error page return
+// *********************
+app.use(function(req, res, next){
+    res.status(404);
+    res.redirect('/invalidpage');
+    next();
+});
 // *************
 // port listener
 // *************
