@@ -85,10 +85,7 @@ app.get('/logout', function(req, res) {
 // *********************
 app.use(function(req, res, next){
   res.status(404);
-  if (req.accepts('html')) {
     res.render('nonexistentpage', { url: req.url });
-    return;
-  }
 });
 // ************************
 // accesses user controller
