@@ -43,7 +43,7 @@
                     <div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
                         <form class="center-align" action="/user/<%= user.id %>/photo/<%= photo.id %>/tag" method="POST" autocomplete="off">
                             <div class="form-group input-field">
-                                <input type="text" placeholder="Add Tag" length="20" name="tag">
+                                <input type="text" placeholder="Add Tag" length="20" name="tag" required>
                             </div>
                         </form>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="col s6 m6 l6 offset-s3 offset-m3 offset-l3">
                         <form class="center-align" action="/user/<%= user.id %>/photo/<%= photo.id %>/note" method="POST" autocomplete="off">
                             <div class="form-group input-field">
-                                <input type="text" placeholder="Add Note" length="50" name="note"></input>
+                                <input type="text" placeholder="Add Note" length="50" name="note" required></input>
                             </div>
                         </form>
                     </div>
