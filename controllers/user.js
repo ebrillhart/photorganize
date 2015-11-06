@@ -403,11 +403,8 @@ router.get("/:id/archive/:idx/show", function(req, res) {
 // 404 error page return
 // *********************
 app.use(function(req, res, next){
-  res.status(404);
-  if (req.accepts('html')) {
-    res.render('nonexistentpage', { url: req.url });
-    return;
-  }
+    res.status(404);
+    res.render('/invalidpage')
 });
 // **********************
 // use router in index.js

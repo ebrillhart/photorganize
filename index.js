@@ -84,8 +84,8 @@ app.get('/logout', function(req, res) {
 // 404 error page return
 // *********************
 app.use(function(req, res, next){
-  res.status(404);
-    res.render('nonexistentpage', { url: req.url });
+    res.status(404);
+    res.redirect('/invalidpage');
 });
 // ************************
 // accesses user controller
